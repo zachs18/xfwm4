@@ -697,6 +697,7 @@ loadSettings (ScreenInfo *screen_info)
         {"margin_top", NULL, G_TYPE_INT, FALSE},
         {"maximized_offset", NULL, G_TYPE_INT, TRUE},
         {"mousewheel_rollup", NULL, G_TYPE_BOOLEAN, FALSE},
+        {"mousewheel_lower", NULL, G_TYPE_BOOLEAN, FALSE},
         {"move_opacity", NULL, G_TYPE_INT, TRUE},
         {"placement_mode", NULL, G_TYPE_STRING, TRUE},
         {"placement_ratio", NULL, G_TYPE_INT, TRUE},
@@ -790,6 +791,8 @@ loadSettings (ScreenInfo *screen_info)
         getBoolValue ("horiz_scroll_opacity", rc);
     screen_info->params->mousewheel_rollup =
         getBoolValue ("mousewheel_rollup", rc);
+    screen_info->params->mousewheel_lower =
+        getBoolValue ("mousewheel_lower", rc);
     screen_info->params->prevent_focus_stealing =
         getBoolValue ("prevent_focus_stealing", rc);
     screen_info->params->raise_delay =
@@ -1352,6 +1355,10 @@ cb_xfwm4_channel_property_changed(XfconfChannel *channel, const gchar *property_
                 else if (!strcmp (name, "mousewheel_rollup"))
                 {
                     screen_info->params->mousewheel_rollup = g_value_get_boolean (value);
+                }
+                else if (!strcmp (name, "mousewheel_lower"))
+                {
+                    screen_info->params->mousewheel_lower = g_value_get_boolean (value);
                 }
                 else if (!strcmp (name, "prevent_focus_stealing"))
                 {

@@ -141,6 +141,13 @@ cb_activate_placement_mouse_radio_toggled (GtkToggleButton *toggle, XfconfChanne
 }
 
 static void
+cb_mousewheel_rollup_button_toggled (GtkToggleButton *toggle, GtkWidget *mousewheel_lower)
+{
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (mousewheel_lower), FALSE);
+    gtk_widget_set_sensitive (mousewheel_lower, gtk_toggle_button_get_active (toggle));
+}
+
+static void
 cb_urgent_blink_button_toggled (GtkToggleButton *toggle, GtkWidget *repeat_urgent_blink)
 {
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (repeat_urgent_blink), FALSE);
@@ -194,6 +201,7 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
     GtkWidget *urgent_blink = GTK_WIDGET (gtk_builder_get_object (builder, "urgent_blink"));
     GtkWidget *repeat_urgent_blink = GTK_WIDGET (gtk_builder_get_object (builder, "repeat_urgent_blink"));
     GtkWidget *mousewheel_rollup = GTK_WIDGET (gtk_builder_get_object (builder, "mousewheel_rollup"));
+    GtkWidget *mousewheel_lower = GTK_WIDGET (gtk_builder_get_object (builder, "mousewheel_lower"));
 
     /* Workspaces tab */
     GtkWidget *scroll_workspaces_check = GTK_WIDGET (gtk_builder_get_object (builder, "scroll_workspaces_check"));
@@ -299,6 +307,10 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
                       "toggled",
                       G_CALLBACK (cb_urgent_blink_button_toggled),
                       repeat_urgent_blink);
+    g_signal_connect (G_OBJECT (mousewheel_rollup),
+                      "toggled",
+                      G_CALLBACK (cb_mousewheel_rollup_button_toggled),
+                      mousewheel_lower);
 
     /* Bind easy properties */
     /* Cycling tab */
@@ -370,6 +382,12 @@ wm_tweaks_dialog_configure_widgets (GtkBuilder *builder)
                             "/general/mousewheel_rollup",
                             G_TYPE_BOOLEAN,
                             (GObject *)mousewheel_rollup, "active");
+    xfconf_g_property_bind (xfwm4_channel,
+                            "/general/mousewheel_lower",
+                            G_TYPE_BOOLEAN,
+                            (GObject *)mousewheel_lower, "active");
+    gtk_widget_set_sensitive (mousewheel_lower,
+                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mousewheel_rollup)));
     gtk_widget_set_sensitive (repeat_urgent_blink,
                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (urgent_blink)));
     gtk_widget_set_sensitive (titleless_maximize_check,

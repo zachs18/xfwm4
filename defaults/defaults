@@ -28,6 +28,7 @@ horiz_scroll_opacity=false
 inactive_opacity=100
 maximized_offset=0
 mousewheel_rollup=true
+mousewheel_lower=true
 move_opacity=100
 placement_mode=center
 placement_ratio=20
