@@ -818,6 +818,10 @@ titleButton (Client *c, guint state, XfwmEventButton *event)
             if (screen_info->params->mousewheel_rollup)
             {
                 clientShade (c);
+                if (screen_info->params->mousewheel_lower)
+                {
+                    clientLower (c, None);
+                }
             }
         }
     }
@@ -836,6 +840,10 @@ titleButton (Client *c, guint state, XfwmEventButton *event)
             if (screen_info->params->mousewheel_rollup)
             {
                 clientUnshade (c);
+                if (screen_info->params->mousewheel_lower)
+                {
+                    clientRaise (c, None);
+                }
             }
         }
     }

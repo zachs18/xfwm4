@@ -222,6 +222,7 @@ struct _XfwmParams
     gboolean full_width_title;
     gboolean horiz_scroll_opacity;
     gboolean mousewheel_rollup;
+    gboolean mousewheel_lower;
     gboolean prevent_focus_stealing;
     gboolean raise_on_click;
     gboolean raise_on_focus;
