@@ -1064,6 +1064,13 @@ check_glx_renderer (ScreenInfo *screen_info)
         "SVGA3D",
         NULL
     };
+#if HAVE_PRESENT_EXTENSION
+    const char *prefer_xpresent[] = {
+        "Intel",
+        "AMD",
+        NULL
+    };
+#endif /* HAVE_PRESENT_EXTENSION */
     int i;
 
     g_return_val_if_fail (screen_info != NULL, FALSE);
@@ -1076,6 +1083,20 @@ check_glx_renderer (ScreenInfo *screen_info)
         return FALSE;
     }
     DBG ("Using GL renderer: %s", glRenderer);
+
+#if HAVE_PRESENT_EXTENSION
+    if (screen_info->vblank_mode == VBLANK_AUTO)
+    {
+        i = 0;
+        while (prefer_xpresent[i] && !strcasestr (glRenderer, prefer_xpresent[i]))
+            i++;
+        if (prefer_xpresent[i])
+        {
+            g_message ("Prefer XPresent with %s", glRenderer);
+            return FALSE;
+        }
+    }
+#endif /* HAVE_PRESENT_EXTENSION */
 
     i = 0;
     while (blacklisted[i] && !strcasestr (glRenderer, blacklisted[i]))
@@ -1136,7 +1157,6 @@ choose_glx_settings (ScreenInfo *screen_info)
     g_return_val_if_fail (screen_info != NULL, FALSE);
     TRACE ("entering");
 
-    glEnable (GL_TEXTURE_2D);
     configs = glXChooseFBConfig (myScreenGetXDisplay (screen_info),
                                  screen_info->screen,
                                  visual_attribs,
@@ -1358,7 +1378,6 @@ init_glx (ScreenInfo *screen_info)
 
     if (!check_glx_renderer (screen_info))
     {
-        g_warning ("Screen is missing required GL renderer, GL support disabled.");
         free_glx_data (screen_info);
 
         return FALSE;
