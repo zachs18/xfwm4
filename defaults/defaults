@@ -37,6 +37,7 @@ prevent_focus_stealing=false
 raise_delay=250
 raise_on_click=true
 raise_on_focus=false
+unshade_on_focus=false
 raise_with_any_button=true
 repeat_urgent_blink=false
 resize_opacity=100

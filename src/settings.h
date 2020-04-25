@@ -225,6 +225,7 @@ struct _XfwmParams
     gboolean prevent_focus_stealing;
     gboolean raise_on_click;
     gboolean raise_on_focus;
+    gboolean unshade_on_focus;
     gboolean raise_with_any_button;
     gboolean repeat_urgent_blink;
     gboolean scroll_workspaces;

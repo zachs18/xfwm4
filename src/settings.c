@@ -707,6 +707,7 @@ loadSettings (ScreenInfo *screen_info)
         {"raise_delay", NULL, G_TYPE_INT, TRUE},
         {"raise_on_click", NULL, G_TYPE_BOOLEAN, TRUE},
         {"raise_on_focus", NULL, G_TYPE_BOOLEAN, TRUE},
+        {"unshade_on_focus", NULL, G_TYPE_BOOLEAN, TRUE},
         {"raise_with_any_button", NULL, G_TYPE_BOOLEAN, TRUE},
         {"repeat_urgent_blink", NULL, G_TYPE_BOOLEAN, TRUE},
         {"resize_opacity", NULL, G_TYPE_INT, TRUE},
