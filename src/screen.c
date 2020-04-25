@@ -864,3 +864,20 @@ myScreenGetFontDescription (ScreenInfo *screen_info)
     widget = myScreenGetGtkWidget (screen_info);
     return getUIPangoFontDesc (widget);
 }
+
+void
+myScreenUpdateFontAttr (ScreenInfo *screen_info)
+{
+    PangoAttribute *attr;
+    GtkWidget *widget;
+    gint scale;
+
+    g_clear_pointer (&screen_info->pango_attr_list, pango_attr_list_unref);
+
+    widget = myScreenGetGtkWidget (screen_info);
+    scale = gtk_widget_get_scale_factor (widget);
+    screen_info->pango_attr_list = pango_attr_list_new ();
+    attr = pango_attr_scale_new (scale);
+    pango_attr_list_insert (screen_info->pango_attr_list, attr);
+}
+

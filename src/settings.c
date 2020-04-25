@@ -470,6 +470,7 @@ loadTheme (ScreenInfo *screen_info, Settings *rc)
     {
         screen_info->font_desc = pango_font_description_from_string (font);
     }
+    myScreenUpdateFontAttr (screen_info);
 
     gdk_rgba_parse (&screen_info->title_colors[ACTIVE], getStringValue ("active_text_color", rc));
     gdk_rgba_parse (&screen_info->title_colors[INACTIVE], getStringValue ("inactive_text_color", rc));
