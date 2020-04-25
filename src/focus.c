@@ -537,6 +537,9 @@ clientUpdateFocus (ScreenInfo *screen_info, Client * c, unsigned short flags)
                 clientResetDelayedRaise (screen_info);
             }
         }
+        if (!restacked && screen_info->params->unshade_on_focus) {
+            clientUnshade (c);
+        }
         frameQueueDraw (c, FALSE);
         clientUpdateOpacity (c);
     }
