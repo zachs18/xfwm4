@@ -802,6 +802,8 @@ loadSettings (ScreenInfo *screen_info)
         getIntValue ("raise_delay", rc);
     screen_info->params->raise_on_focus =
         getBoolValue ("raise_on_focus", rc);
+    screen_info->params->unshade_on_focus =
+        getBoolValue ("unshade_on_focus", rc);
     screen_info->params->focus_delay =
         getIntValue ("focus_delay", rc);
     screen_info->params->raise_on_click =
@@ -1280,6 +1282,10 @@ cb_xfwm4_channel_property_changed(XfconfChannel *channel, const gchar *property_
                 else if (!strcmp (name, "raise_on_focus"))
                 {
                     screen_info->params->raise_on_focus = g_value_get_boolean (value);
+                }
+                else if (!strcmp (name, "unshade_on_focus"))
+                {
+                    screen_info->params->unshade_on_focus = g_value_get_boolean (value);
                 }
                 else if (!strcmp (name, "raise_on_click"))
                 {
