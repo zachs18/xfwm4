@@ -303,6 +303,7 @@ xfwm_settings_constructed (GObject *object)
   GtkWidget          *focus_raise_delay_scale;
   GtkWidget          *raise_on_click_check;
   GtkWidget          *raise_on_focus_check;
+  GtkWidget          *unshade_on_focus_check;
   GtkWidget          *click_to_focus_radio;
   GtkWidget          *focus_new_check;
   GtkWidget          *box_move_check;
@@ -528,6 +529,7 @@ xfwm_settings_constructed (GObject *object)
   focus_raise_delay_scale = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "focus_raise_delay_scale"));
   focus_new_check = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "focus_new_check"));
   raise_on_focus_check = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "raise_on_focus_check"));
+  unshade_on_focus_check = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "unshade_on_focus_check"));
   raise_on_click_check = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "raise_on_click_check"));
   click_to_focus_radio = GTK_WIDGET (gtk_builder_get_object (settings->priv->builder, "click_to_focus_radio"));
 
@@ -540,6 +542,8 @@ xfwm_settings_constructed (GObject *object)
                           raise_on_click_check, "active");
   xfconf_g_property_bind (settings->priv->wm_channel, "/general/raise_on_focus", G_TYPE_BOOLEAN,
                           raise_on_focus_check, "active");
+  xfconf_g_property_bind (settings->priv->wm_channel, "/general/unshade_on_focus", G_TYPE_BOOLEAN,
+                          unshade_on_focus_check, "active");
   xfconf_g_property_bind (settings->priv->wm_channel, "/general/focus_new", G_TYPE_BOOLEAN,
                           focus_new_check, "active");
   xfconf_g_property_bind (settings->priv->wm_channel, "/general/click_to_focus", G_TYPE_BOOLEAN,
